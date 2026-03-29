@@ -163,12 +163,16 @@ nav{display:flex;align-items:center;gap:2px}
 /* ── HERO ── */
 .hero{
   position:relative;
-  background:var(--bg);
+  background:var(--navy2);
   overflow:hidden;
-  min-height:520px;
-  display:flex;align-items:center;
+  width:100%;
+  /* Banner: full 5013×1629 image = 32.5% padding-bottom */
+  padding-bottom:32.5%;
+  height:0;
 }
-@media(prefers-color-scheme:light){.hero{background:linear-gradient(135deg,#e8f5e9 0%,#f0fdf4 45%,#fff8f0 100%)}}
+@media(prefers-color-scheme:light){.hero{background:#1a3d1e}}
+@media(max-width:768px){.hero{padding-bottom:50%}}
+@media(max-width:480px){.hero{padding-bottom:65%}}
 @media(prefers-color-scheme:light){
   .hero-content p{color:var(--text2)}
   .hero-eyebrow{color:var(--blue);background:rgba(42,128,25,.1);border-color:rgba(42,128,25,.25)}
@@ -183,7 +187,7 @@ nav{display:flex;align-items:center;gap:2px}
 .hero::before{
   content:'';position:absolute;
   width:900px;height:900px;border-radius:50%;
-  background:radial-gradient(circle,rgba(45,138,30,.22) 0%,rgba(111,221,85,.08) 40%,transparent 70%);
+  background:radial-gradient(circle,rgba(45,138,30,.1) 0%,rgba(111,221,85,.08) 40%,transparent 70%);
   top:-200px;right:-200px;
   animation:blobPulse 8s ease-in-out infinite alternate;
 }
@@ -208,9 +212,10 @@ nav{display:flex;align-items:center;gap:2px}
   background-size:60px 60px;
 }
 .hero-content{
-  position:relative;z-index:2;
+  position:absolute;inset:0;z-index:2;
   max-width:1280px;margin:0 auto;
-  padding:80px 32px;width:100%;
+  padding:40px 48px;width:100%;
+  display:flex;flex-direction:column;justify-content:center;
 }
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
@@ -224,7 +229,7 @@ nav{display:flex;align-items:center;gap:2px}
 
 .hero-content h1{
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(56px,8vw,100px);
+  font-size:clamp(32px,5vw,72px);
   color:var(--hero-h1,#fff);line-height:.92;letter-spacing:.03em;
   margin-bottom:24px;
 }
@@ -234,7 +239,7 @@ nav{display:flex;align-items:center;gap:2px}
   display:block;
 }
 .hero-content p{
-  font-size:17px;color:var(--text2);max-width:500px;line-height:1.7;margin-bottom:36px;
+  font-size:15px;color:var(--text2);max-width:500px;line-height:1.7;margin-bottom:28px;
 }
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
 .btn-primary{
@@ -255,11 +260,11 @@ nav{display:flex;align-items:center;gap:2px}
 
 /* Stats row */
 .hero-stats{
-  display:flex;gap:32px;margin-top:48px;padding-top:32px;
+  display:flex;gap:24px;margin-top:28px;padding-top:20px;
   border-top:1px solid var(--border2);flex-wrap:wrap;
 }
 .hero-stat .num{
-  font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--hero-h1,#fff);line-height:1;
+  font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--hero-h1,#fff);line-height:1;
   background:linear-gradient(135deg,var(--hero-h1,#fff),var(--gold));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
@@ -270,8 +275,10 @@ nav{display:flex;align-items:center;gap:2px}
   position:relative;border-radius:20px;overflow:hidden;
   box-shadow:0 0 0 1px var(--border),var(--shadow-lg);
   background:var(--card);
-  /* 16:9 via padding-bottom */
-  padding-bottom:56.25%;
+  /* 16:9 but max-width limits height */
+  max-width:720px;
+  margin-left:auto;margin-right:auto;
+  padding-bottom:min(56.25%,405px);
   height:0;
 }
 .carousel-track{
@@ -698,6 +705,7 @@ nav{display:flex;align-items:center;gap:2px}
   .admin-header{flex-direction:column;align-items:flex-start;gap:12px}
 }
 @media(max-width:600px){
+  .carousel-wrap{max-width:100%;padding-bottom:56.25%}
   .news-grid{grid-template-columns:1fr}
   .main-wrap{padding:32px 16px}
   .white-card{padding:22px}
@@ -711,7 +719,7 @@ nav{display:flex;align-items:center;gap:2px}
   .intro-strip{padding:22px 18px}
   .admin-tabs{gap:3px}
   .admin-tab{flex:none;font-size:11px;padding:7px 9px;min-width:auto}
-  .carousel-slide{height:260px}
+  .carousel-slide{height:auto}
   .tz-grid{grid-template-columns:1fr}
   .footer-grid{gap:24px}
   .c-btn{display:none}
@@ -857,12 +865,12 @@ nav{display:flex;align-items:center;gap:2px}
   <!-- ── HERO ── -->
   <div class="hero" id="heroSection">
     <div class="hero-grid"></div>
-    <div id="heroBgPh" style="display:none;position:absolute;top:14px;right:14px;z-index:5;background:rgba(0,0,0,.45);border-radius:8px;flex-direction:row;align-items:center;gap:6px;padding:6px 12px;cursor:pointer;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)">
+    <div id="heroBgPh" style="display:none;position:absolute;top:10px;right:10px;z-index:5;background:rgba(0,0,0,.45);border-radius:8px;flex-direction:row;align-items:center;gap:6px;padding:6px 12px;cursor:pointer;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)">
       <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,.5)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>
       <span style="font-size:11px;color:rgba(255,255,255,.45)">Hintergrundbild</span>
       <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer" onchange="uploadHeroBg(this)"/>
     </div>
-    <img id="heroBgImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;display:none"/>
+    <img id="heroBgImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:1;display:none;transition:filter .3s"/>
     <div class="hero-content">
       <div class="hero-eyebrow">Schwimmverein Hockenheim · Seit 1967</div>
       <h1>Wir sind der<br/><span class="accent-line">SV Hockenheim</span></h1>
@@ -888,35 +896,6 @@ nav{display:flex;align-items:center;gap:2px}
 
   <div class="main-wrap">
 
-    <!-- ── BILDKARUSSELL (separat, unterhalb des Hero) ── -->
-    <div class="carousel-wrap" style="margin-bottom:56px">
-      <div class="carousel-track" id="heroSlider">
-        <div class="carousel-slide" id="hs0">
-          
-          <div class="carousel-slide-label" style="display:block"><h2>Vereinsmeisterschaften 2025</h2><p>Früh aufgestanden, stark geschwommen</p></div>
-        </div>
-        <div class="carousel-slide" id="hs1">
-          
-          <div class="carousel-slide-label" style="display:block"><h2>Hoggi Cup 2026</h2><p>Unser vereinseigener Nachwuchswettbewerb</p></div>
-        </div>
-        <div class="carousel-slide" id="hs2">
-          
-          <div class="carousel-slide-label" style="display:block"><h2>Trainingslager 2025</h2><p>Freudenstadt im Schwarzwald</p></div>
-        </div>
-        <div class="carousel-slide" id="hs3">
-          
-          <div class="carousel-slide-label" style="display:block"><h2>Wandertag 2025</h2><p>Gemeinschaft auch abseits des Wassers</p></div>
-        </div>
-      </div>
-      <button class="c-btn prev" onclick="changeSlide(-1)">&#8249;</button>
-      <button class="c-btn next" onclick="changeSlide(1)">&#8250;</button>
-      <div class="c-dots" id="sDots">
-        <button class="c-dot active" onclick="goSlide(0)"></button>
-        <button class="c-dot" onclick="goSlide(1)"></button>
-        <button class="c-dot" onclick="goSlide(2)"></button>
-        <button class="c-dot" onclick="goSlide(3)"></button>
-      </div>
-    </div>
     <!-- Intro Strip -->
     <div class="intro-strip">
       <div>
@@ -927,6 +906,32 @@ nav{display:flex;align-items:center;gap:2px}
       <div class="intro-stat">
         <div class="num">330+</div>
         <div class="lbl">Mitglieder</div>
+      </div>
+    </div>
+
+    <!-- ── BILDKARUSSELL ── -->
+    <div class="carousel-wrap" style="margin-bottom:48px">
+      <div class="carousel-track" id="heroSlider">
+        <div class="carousel-slide" id="hs0">
+          <div class="carousel-slide-label" style="display:block"><h2>Vereinsmeisterschaften 2025</h2><p>Früh aufgestanden, stark geschwommen</p></div>
+        </div>
+        <div class="carousel-slide" id="hs1">
+          <div class="carousel-slide-label" style="display:block"><h2>Hoggi Cup 2026</h2><p>Unser vereinseigener Nachwuchswettbewerb</p></div>
+        </div>
+        <div class="carousel-slide" id="hs2">
+          <div class="carousel-slide-label" style="display:block"><h2>Trainingslager 2025</h2><p>Freudenstadt im Schwarzwald</p></div>
+        </div>
+        <div class="carousel-slide" id="hs3">
+          <div class="carousel-slide-label" style="display:block"><h2>Wandertag 2025</h2><p>Gemeinschaft auch abseits des Wassers</p></div>
+        </div>
+      </div>
+      <button class="c-btn prev" onclick="changeSlide(-1)">&#8249;</button>
+      <button class="c-btn next" onclick="changeSlide(1)">&#8250;</button>
+      <div class="c-dots" id="sDots">
+        <button class="c-dot active" onclick="goSlide(0)"></button>
+        <button class="c-dot" onclick="goSlide(1)"></button>
+        <button class="c-dot" onclick="goSlide(2)"></button>
+        <button class="c-dot" onclick="goSlide(3)"></button>
       </div>
     </div>
 
@@ -985,10 +990,11 @@ nav{display:flex;align-items:center;gap:2px}
   <div class="main-wrap">
     <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span class="sep">/</span>Der Verein</div>
     <div class="section-head"><div class="section-tag">Über uns</div><h2>Der Schwimmverein Hockenheim</h2></div>
-    <div class="white-card" style="max-width:780px">
+    <div class="white-card" style="max-width:780px;margin-bottom:32px">
       <p style="font-size:15px;line-height:1.85;color:var(--text2);margin-bottom:16px">Der Schwimmverein Hockenheim e.V. wurde am 16.06.1967 mit 31 Mitgliedern gegründet. Zum heutigen Zeitpunkt zählen wir über 330 Mitglieder.</p>
-      <p style="font-size:15px;line-height:1.85;color:var(--text2);margin-bottom:16px">In der Zwischenzeit konnten Schwimmer/innen des Schwimmvereins beachtliche Plazierungen und Meistertitel bei Kreis-, Bezirks-, Badischen Jahrgangs-, Baden-Württembergischen und Deutschen Master-Meisterschaften erzielen.</p>
-      <p style="font-size:15px;line-height:1.85;color:var(--text2)">Der SVH ist heute in der Lage, für verschiedene Trainingsgruppen ein Training im Aquadrom und/oder im Lehrschwimmbecken anzubieten. Daneben bieten wir für interessierte Kinder ab dem Grundschulalter auch Kurse im Anfänger- und Fortgeschrittenenbereich an.</p>
+      <p style="font-size:15px;line-height:1.85;color:var(--text2);margin-bottom:16px">In der Zwischenzeit konnten Schwimmer/innen des Schwimmvereins beachtliche Platzierungen und Meistertitel bei Kreis-, Bezirks-, Badischen Jahrgangs-, Baden-Württembergischen und Deutschen Master-Meisterschaften erzielen.</p>
+      <p style="font-size:15px;line-height:1.85;color:var(--text2);margin-bottom:16px">Der SVH ist heute in der Lage, für verschiedene Trainingsgruppen ein Training im Aquadrom und/oder im Lehrschwimmbecken anzubieten. Daneben bieten wir für interessierte Kinder ab dem Grundschulalter auch Kurse im Anfänger- und Fortgeschrittenenbereich an.</p>
+      <p style="font-size:15px;line-height:1.85;color:var(--text2)">Der Verein ist Mitglied im <strong style="color:var(--text)">Badischen Schwimm-Verband e.V. (BSV)</strong> und im <strong style="color:var(--text)">Deutschen Schwimm-Verband e.V. (DSV)</strong>.</p>
     </div>
     <div class="wk-cards" style="margin-top:32px">
       <div class="wk-card" onclick="showPage('vorstandschaft')"><div class="wk-icon"><svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--blue2)" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg></div><h3>Die Vorstandschaft</h3></div>
@@ -1118,7 +1124,7 @@ nav{display:flex;align-items:center;gap:2px}
     <div class="white-card" style="max-width:780px;font-size:15px;line-height:1.85;color:var(--text2)">
       <p style="margin-bottom:14px">Masters nennt sich das Team von Schwimmerinnen und Schwimmern, die das 20. Lebensjahr erreicht oder überschritten haben und Freude am sportlichen Schwimmen mit Trainingsprogramm unter Anleitung haben.</p>
       <p style="margin-bottom:14px">Von Vereinsmeisterschaften bis hin zu Weltmeisterschaften ist, je nach individuellen Möglichkeiten, alles denkbar.</p>
-      <p style="margin-bottom:24px">Interesse an einem Probetraining? Melde dich per Mail: <a href="/cdn-cgi/l/email-protection#147f7b7a60757f605467627c7b777f717a7c717d793a7071" style="color:var(--blue2)"><span class="__cf_email__" data-cfemail="fd969293899c9689bd8e8b95929e96989395989490d39998">[email&#160;protected]</span></a></p>
+      <p style="margin-bottom:24px">Interesse an einem Probetraining? Melde dich per Mail: <a href="/cdn-cgi/l/email-protection#c2a9adacb6a3a9b682b1b4aaada1a9a7acaaa7abafeca6a7" style="color:var(--blue2)"><span class="__cf_email__" data-cfemail="f3989c9d87929887b380859b9c9098969d9b969a9edd9796">[email&#160;protected]</span></a></p>
       <a href="https://svhockenheim.de/fileadmin/Unterlagen/Aufnahmeantrag_SVH_2019.pdf" target="_blank" class="btn-primary" style="display:inline-block">Aufnahmeantrag downloaden</a>
     </div>
   </div>
@@ -1176,7 +1182,7 @@ nav{display:flex;align-items:center;gap:2px}
 <div class="page" id="page-trainer">
   <div class="main-wrap">
     <div class="breadcrumb"><a onclick="showPage('home')">Home</a><span class="sep">/</span><a onclick="showPage('training')">Training</a><span class="sep">/</span>Unsere Trainer</div>
-    <div class="section-head"><div class="section-tag">Team</div><h2>Unsere Trainer</h2><p>Bei Anliegen: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d4a2bba6bab5b9b1fabab5b7bcbab5b9b194a7a2bcbbb7bfb1babcb1bdb9fab0b1">[email&#160;protected]</a></p></div>
+    <div class="section-head"><div class="section-tag">Team</div><h2>Unsere Trainer</h2><p>Bei Anliegen bitte per E-Mail an <a href="/cdn-cgi/l/email-protection#c7b3b5a6aea9aea9a087b4b1afa8a4aca2a9afa2aeaae9a3a2" style="color:var(--blue2)"><span class="__cf_email__" data-cfemail="433731222a2d2a2d240330352b2c2028262d2b262a2e6d2726">[email&#160;protected]</span></a></p></div>
     <div class="person-grid" id="pgTrainer"></div>
   </div>
 </div>
@@ -1188,16 +1194,25 @@ nav{display:flex;align-items:center;gap:2px}
     <div class="section-head"><div class="section-tag">Stätten</div><h2>Unsere Trainingsstätten</h2></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
       <div class="white-card" style="padding:0;overflow:hidden">
-        <div style="height:200px;background:rgba(30,111,255,.1);position:relative">
-          
+        <div style="aspect-ratio:16/9;background:var(--card2);position:relative;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:40px">🏊</span>
         </div>
-        <div style="padding:24px"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;margin-bottom:8px">Sportbecken Aquadrom</h3><p style="font-size:13px;color:var(--text2)">Haupttrainingsstätte für die Wettkampfschwimmer. <a href="https://www.aquadrom.de" target="_blank" style="color:var(--blue2)">aquadrom.de ↗</a></p></div>
+        <div style="padding:24px">
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);margin-bottom:10px">Sportbecken Aquadrom</h3>
+          <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:8px">Das Aquadrom Hockenheim ist unsere Haupttrainingsstätte für alle Wettkampfschwimmer, Jugendgruppen und Masters. Das Sportbecken bietet ideale Bedingungen für intensives Training.</p>
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Heidelberger Str. 79 · 68766 Hockenheim</p>
+          <a href="https://www.aquadrom.de" target="_blank" style="color:var(--blue2);font-size:13px;font-weight:600">aquadrom.de ↗</a>
+        </div>
       </div>
       <div class="white-card" style="padding:0;overflow:hidden">
-        <div style="height:200px;background:rgba(30,111,255,.1);position:relative">
-          
+        <div style="aspect-ratio:16/9;background:var(--card2);position:relative;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:40px">🏫</span>
         </div>
-        <div style="padding:24px"><h3 style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;margin-bottom:8px">Lehrschwimmbecken</h3><p style="font-size:13px;color:var(--text2)">Ideal für Grundlagentraining, Kurse und Nachwuchsgruppen.</p></div>
+        <div style="padding:24px">
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--text);margin-bottom:10px">Lehrschwimmbecken</h3>
+          <p style="font-size:14px;color:var(--text2);line-height:1.7;margin-bottom:8px">Das Lehrschwimmbecken der Stadt Hockenheim wird für Grundlagengruppen, Schwimmkurse und Nachwuchsgruppen genutzt. Das kleinere Becken eignet sich besonders für Kinder und Anfänger.</p>
+          <p style="font-size:13px;color:var(--muted)">Schubertstraße 17 · 68766 Hockenheim</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1238,8 +1253,8 @@ nav{display:flex;align-items:center;gap:2px}
     <div class="white-card" style="max-width:680px">
       <p style="font-size:15px;font-style:italic;color:var(--text2);line-height:1.85;margin-bottom:20px">Ob für Kinder mit besonderen Bedürfnissen, ältere Kinder die nicht in den Gruppenkurs möchten, erwachsene Nichtschwimmer oder Schwimmer die Technik verbessern wollen – wir bieten Einzelunterricht an.</p>
       <div style="display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap">
-        <div style="background:rgba(30,111,255,.1);border-radius:12px;padding:16px 24px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--blue2)">35 €</div><div style="font-size:12px;color:var(--text2)">pro 45 Min.</div></div>
-        <div style="background:rgba(30,111,255,.1);border-radius:12px;padding:16px 24px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--blue2)">1/2/5</div><div style="font-size:12px;color:var(--text2)">Stunden buchbar</div></div>
+        <div style="background:rgba(42,128,25,.1);border:1px solid var(--border);border-radius:12px;padding:16px 24px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--accent)">35 €</div><div style="font-size:12px;color:var(--text2)">pro 45 Min.</div></div>
+        <div style="background:rgba(42,128,25,.1);border:1px solid var(--border);border-radius:12px;padding:16px 24px;text-align:center"><div style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--accent)">1/2/5</div><div style="font-size:12px;color:var(--text2)">Stunden buchbar</div></div>
       </div>
       <a href="https://svhockenheim.de/Kurse/EzStW/" target="_blank" class="btn-primary" style="display:inline-block">Jetzt vormerken lassen ↗</a>
     </div>
@@ -1250,6 +1265,10 @@ nav{display:flex;align-items:center;gap:2px}
 <div class="page" id="page-wettkampf">
   <div class="main-wrap">
     <div class="section-head"><div class="section-tag">Sport</div><h2>Wettkampf</h2></div>
+    <div class="white-card" style="max-width:780px;margin-bottom:32px">
+      <p style="font-size:15px;line-height:1.85;color:var(--text2);margin-bottom:14px">Der Schwimmverein Hockenheim nimmt regelmäßig an Wettkämpfen auf Kreis-, Bezirks- und Landesebene teil. Unsere Wettkampfschwimmer trainieren in speziellen Leistungsgruppen und werden von erfahrenen Trainern gezielt auf Wettkämpfe vorbereitet.</p>
+      <p style="font-size:15px;line-height:1.85;color:var(--text2)">Von lokalen Kreismeisterschaften bis zu badischen und deutschen Meisterschaften – der SVH ist auf vielen Ebenen vertreten. Unsere Masters-Schwimmer nehmen zudem an nationalen und internationalen Mastersveranstaltungen teil.</p>
+    </div>
     <div class="wk-cards">
       <div class="wk-card" onclick="showPage('trainingszeiten')"><div class="wk-icon">⏱</div><h3>Trainingszeiten</h3><p>Zeiten unserer Wettkampfschwimmer</p></div>
       <div class="wk-card" onclick="showPage('vereinsrekorde')"><div class="wk-icon">🏆</div><h3>Vereinsrekorde</h3><p>Die schnellsten Zeiten des SVH</p></div>
@@ -1266,14 +1285,14 @@ nav{display:flex;align-items:center;gap:2px}
     <div class="rekord-wrap">
       <div class="rekord-head">Lange Bahn (50m)</div>
       <table class="rekord-table">
-        <thead><tr><th>Männer</th><th>Jg.</th><th>Zeit</th><th>Disziplin</th><th>Zeit</th><th>Jg.</th><th>Frauen</th></tr></thead>
+        <thead><tr><th>Männer</th><th>Jg.</th><th>Zeit</th><th>Datum</th><th>Disziplin</th><th>Datum</th><th>Zeit</th><th>Jg.</th><th>Frauen</th></tr></thead>
         <tbody id="rekord-page-lang"></tbody>
       </table>
     </div>
     <div class="rekord-wrap">
       <div class="rekord-head">Kurze Bahn (25m)</div>
       <table class="rekord-table">
-        <thead><tr><th>Männer</th><th>Jg.</th><th>Zeit</th><th>Disziplin</th><th>Zeit</th><th>Jg.</th><th>Frauen</th></tr></thead>
+        <thead><tr><th>Männer</th><th>Jg.</th><th>Zeit</th><th>Datum</th><th>Disziplin</th><th>Datum</th><th>Zeit</th><th>Jg.</th><th>Frauen</th></tr></thead>
         <tbody id="rekord-page-kurz"></tbody>
       </table>
     </div>
@@ -1288,7 +1307,7 @@ nav{display:flex;align-items:center;gap:2px}
     <div class="white-card" style="max-width:600px;font-size:14px;line-height:1.8;color:var(--text2)">
       <p style="margin-bottom:12px"><strong style="color:var(--text)">Betreiber:</strong><br/>Schwimmverein Hockenheim e.V.<br/>Heidelberger Straße 79 · 68766 Hockenheim</p>
       <p style="margin-bottom:12px"><strong style="color:var(--text)">Postadresse:</strong><br/>Schwimmverein Hockenheim e.V. · Postfach 12 73 · 68766 Hockenheim</p>
-      <p style="margin-bottom:12px"><strong style="color:var(--text)">Inhaltlich Verantwortliche:</strong><br/>Kay Uhlig, Sven Grundner · <a href="/cdn-cgi/l/email-protection#681f0d0a05091b1c0d1a281b1e00070b030d06000d0105460c0d" style="color:var(--blue2)"><span class="__cf_email__" data-cfemail="b5c2d0d7d8d4c6c1d0c7f5c6c3dddad6ded0dbddd0dcd89bd1d0">[email&#160;protected]</span></a></p>
+      <p style="margin-bottom:12px"><strong style="color:var(--text)">Inhaltlich Verantwortliche:</strong><br/>Kay Uhlig, Sven Grundner · <a href="/cdn-cgi/l/email-protection#afd8cacdc2cedcdbcaddefdcd9c7c0ccc4cac1c7cac6c281cbca" style="color:var(--blue2)"><span class="__cf_email__" data-cfemail="463123242b27353223340635302e29252d23282e232f2b682223">[email&#160;protected]</span></a></p>
     </div>
   </div>
 </div>
@@ -1458,15 +1477,17 @@ nav{display:flex;align-items:center;gap:2px}
           <button onclick="addRekordRow('lang')" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif">+ Zeile</button>
         </div>
         <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px" id="rekord-lang-table">
-          <thead><tr style="background:#f0f5fb">
-            <th style="padding:8px;text-align:left;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Männer</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Jg.</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Zeit</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);background:rgba(30,111,255,.1);color:#fff">Disziplin</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Zeit</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Jg.</th>
-            <th style="padding:8px;text-align:left;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Frauen</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Aktion</th>
+          <thead><tr style="background:var(--card2)">
+            <th style="padding:6px;text-align:left;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Männer</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Jg.</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Zeit</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Datum M</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);background:rgba(42,128,25,.1);color:var(--text2)">Disziplin</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Datum F</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Zeit</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Jg.</th>
+            <th style="padding:6px;text-align:left;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Frauen</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Del</th>
           </tr></thead>
           <tbody id="rekord-lang-body"></tbody>
         </table></div>
@@ -1477,15 +1498,17 @@ nav{display:flex;align-items:center;gap:2px}
           <button onclick="addRekordRow('kurz')" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif">+ Zeile</button>
         </div>
         <div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px" id="rekord-kurz-table">
-          <thead><tr style="background:#f0f5fb">
-            <th style="padding:8px;text-align:left;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Männer</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Jg.</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Zeit</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);background:rgba(30,111,255,.1);color:#fff">Disziplin</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Zeit</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Jg.</th>
-            <th style="padding:8px;text-align:left;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Frauen</th>
-            <th style="padding:8px;text-align:center;font-size:11px;border-bottom:2px solid var(--border);color:#fff">Aktion</th>
+          <thead><tr style="background:var(--card2)">
+            <th style="padding:6px;text-align:left;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Männer</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Jg.</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Zeit</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Datum M</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);background:rgba(42,128,25,.1);color:var(--text2)">Disziplin</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Datum F</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Zeit</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Jg.</th>
+            <th style="padding:6px;text-align:left;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Frauen</th>
+            <th style="padding:6px;text-align:center;font-size:10px;border-bottom:1px solid var(--border);color:var(--text2)">Del</th>
           </tr></thead>
           <tbody id="rekord-kurz-body"></tbody>
         </table></div>
@@ -1606,7 +1629,7 @@ nav{display:flex;align-items:center;gap:2px}
 
 <div id="uploadHint">✓ Bild eingefügt!</div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var ADMIN_PW='7204';
 var builtinArticles=[
   {id:'dossenheim2026',title:'Dossenheim 2026',date:'28.02.2026',folder:'2026',teaser:'Der Wettkampfsamstag startete um 15 Uhr und endete um 22 Uhr beim 11. Late Night Schwimmfest.',full:'<p>Der vergangene Wettkampfsamstag (28.02.2026) startete für die Schwimmer des SVH erst um 15 Uhr und ging bis 22 Uhr. Das Besondere: Im Dunkeln schwimmen, mit Leuchtarmbändern und Musik bei den Staffeln.</p><p><strong>Ergebnisse:</strong><br/>Justin Rieger: 2. Platz 50m Brust – 00:34,06<br/>Pascal Dehoust: 1. Platz 100m Lagen – 01:19,57<br/>Luca Göddelmann: 1. Platz 100m Brust – 01:54,83</p>'},
@@ -1624,31 +1647,31 @@ var vorstand=[{n:'Ramona Brenner',r:'Vorstand für Öffentlichkeit',e:'ramona.br
 var erweiterter=[{n:'Justin Rieger',r:'Jugendvorstand'},{n:'Pascal Reinmuth',r:'Stv. Jugendvorstand'},{n:'Tatjana Sturm',r:'Schwimmwart'},{n:'Tanina Nieli',r:'Pressewart'},{n:'Antje Geiler',r:'Beisitzer'},{n:'Sven Grunder',r:'Beisitzer'}];
 var defaultRekorde={
   lang:[
-    {mName:'Schreiber, Michael',mJg:'82',mZeit:'25.85',disc:'50 Freistil',fZeit:'29.40',fJg:'78',fName:'Duggen, Katja'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'57.61',disc:'100 Freistil',fZeit:'1:05.72',fJg:'84',fName:'Sawa, Evelyn'},
-    {mName:'Schimmel, Michael',mJg:'68',mZeit:'2:07.60',disc:'200 Freistil',fZeit:'2:23.05',fJg:'84',fName:'Sawa, Evelyn'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'4:57.60',disc:'400 Freistil',fZeit:'5:10.31',fJg:'84',fName:'Zierath, Eva'},
-    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'31.28',disc:'50 Rücken',fZeit:'33.97',fJg:'95',fName:'Haag, Jennifer'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'1:08.42',disc:'100 Rücken',fZeit:'1:13.58',fJg:'84',fName:'Sawa, Evelyn'},
-    {mName:'Rieger, Justin',mJg:'03',mZeit:'34.63',disc:'50 Brust',fZeit:'35.84',fJg:'89',fName:'Köller, Carolin'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'1:16.11',disc:'100 Brust',fZeit:'1:23.22',fJg:'89',fName:'Köller, Carolin'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'2:44.60',disc:'200 Brust',fZeit:'3:08.63',fJg:'89',fName:'Köller, Carolin'},
-    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'27.90',disc:'50 Schmetterling',fZeit:'31.81',fJg:'93',fName:'Brenner, Ramona'},
-    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'1:07.19',disc:'100 Schmetterling',fZeit:'1:19.25',fJg:'90',fName:'Mäder, Lisa'},
-    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'2:34.89',disc:'200 Lagen',fZeit:'2:49.20',fJg:'79',fName:'Misch, Sara-Marisa'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'5:46.46',disc:'400 Lagen',fZeit:'6:00.96',fJg:'79',fName:'Wehr, Margot'}
+    {mName:'Schreiber, Michael',mJg:'82',mZeit:'25.85',mDatum:'',disc:'50 Freistil',fZeit:'29.40',fJg:'78',fName:'Duggen, Katja',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'57.61',mDatum:'',disc:'100 Freistil',fZeit:'1:05.72',fJg:'84',fName:'Sawa, Evelyn',fDatum:''},
+    {mName:'Schimmel, Michael',mJg:'68',mZeit:'2:07.60',mDatum:'',disc:'200 Freistil',fZeit:'2:23.05',fJg:'84',fName:'Sawa, Evelyn',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'4:57.60',mDatum:'',disc:'400 Freistil',fZeit:'5:10.31',fJg:'84',fName:'Zierath, Eva',fDatum:''},
+    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'31.28',mDatum:'',disc:'50 Rücken',fZeit:'33.97',fJg:'95',fName:'Haag, Jennifer',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'1:08.42',mDatum:'',disc:'100 Rücken',fZeit:'1:13.58',fJg:'84',fName:'Sawa, Evelyn',fDatum:''},
+    {mName:'Rieger, Justin',mJg:'03',mZeit:'34.63',mDatum:'',disc:'50 Brust',fZeit:'35.84',fJg:'89',fName:'Köller, Carolin',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'1:16.11',mDatum:'',disc:'100 Brust',fZeit:'1:23.22',fJg:'89',fName:'Köller, Carolin',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'2:44.60',mDatum:'',disc:'200 Brust',fZeit:'3:08.63',fJg:'89',fName:'Köller, Carolin',fDatum:''},
+    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'27.90',mDatum:'',disc:'50 Schmetterling',fZeit:'31.81',fJg:'93',fName:'Brenner, Ramona',fDatum:''},
+    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'1:07.19',mDatum:'',disc:'100 Schmetterling',fZeit:'1:19.25',fJg:'90',fName:'Mäder, Lisa',fDatum:''},
+    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'2:34.89',mDatum:'',disc:'200 Lagen',fZeit:'2:49.20',fJg:'79',fName:'Misch, Sara-Marisa',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'5:46.46',mDatum:'',disc:'400 Lagen',fZeit:'6:00.96',fJg:'79',fName:'Wehr, Margot',fDatum:''}
   ],
   kurz:[
-    {mName:'Stenzel, Jörn',mJg:'74',mZeit:'25.16',disc:'50 Freistil',fZeit:'28.97',fJg:'93',fName:'Brenner, Ramona'},
-    {mName:'Stenzel, Jörn',mJg:'74',mZeit:'55.70',disc:'100 Freistil',fZeit:'1:04.72',fJg:'93',fName:'Brenner, Ramona'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'30.74',disc:'50 Rücken',fZeit:'33.49',fJg:'95',fName:'Haag, Jennifer'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'1:04.57',disc:'100 Rücken',fZeit:'1:13.09',fJg:'84',fName:'Sawa, Evelyn'},
-    {mName:'Freitag, Michael',mJg:'73',mZeit:'33.30',disc:'50 Brust',fZeit:'35.41',fJg:'89',fName:'Köller, Carolin'},
-    {mName:'Dommaschk, Martin',mJg:'76',mZeit:'1:12.27',disc:'100 Brust',fZeit:'1:19.08',fJg:'89',fName:'Köller, Carolin'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'2:42.40',disc:'200 Brust',fZeit:'3:00.82',fJg:'89',fName:'Köller, Carolin'},
-    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'27.57',disc:'50 Schmetterling',fZeit:'31.64',fJg:'93',fName:'Brenner, Ramona'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'2:24.26',disc:'200 Lagen',fZeit:'2:44.76',fJg:'79',fName:'Misch, Sara-Marisa'},
-    {mName:'Ern, Keyvan',mJg:'78',mZeit:'5:35.09',disc:'400 Lagen',fZeit:'6:03.66',fJg:'79',fName:'Misch, Sara-Marisa'}
+    {mName:'Stenzel, Jörn',mJg:'74',mZeit:'25.16',mDatum:'',disc:'50 Freistil',fZeit:'28.97',fJg:'93',fName:'Brenner, Ramona',fDatum:''},
+    {mName:'Stenzel, Jörn',mJg:'74',mZeit:'55.70',mDatum:'',disc:'100 Freistil',fZeit:'1:04.72',fJg:'93',fName:'Brenner, Ramona',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'30.74',mDatum:'',disc:'50 Rücken',fZeit:'33.49',fJg:'95',fName:'Haag, Jennifer',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'1:04.57',mDatum:'',disc:'100 Rücken',fZeit:'1:13.09',fJg:'84',fName:'Sawa, Evelyn',fDatum:''},
+    {mName:'Freitag, Michael',mJg:'73',mZeit:'33.30',mDatum:'',disc:'50 Brust',fZeit:'35.41',fJg:'89',fName:'Köller, Carolin',fDatum:''},
+    {mName:'Dommaschk, Martin',mJg:'76',mZeit:'1:12.27',mDatum:'',disc:'100 Brust',fZeit:'1:19.08',fJg:'89',fName:'Köller, Carolin',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'2:42.40',mDatum:'',disc:'200 Brust',fZeit:'3:00.82',fJg:'89',fName:'Köller, Carolin',fDatum:''},
+    {mName:'Jahnke, Klaus',mJg:'78',mZeit:'27.57',mDatum:'',disc:'50 Schmetterling',fZeit:'31.64',fJg:'93',fName:'Brenner, Ramona',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'2:24.26',mDatum:'',disc:'200 Lagen',fZeit:'2:44.76',fJg:'79',fName:'Misch, Sara-Marisa',fDatum:''},
+    {mName:'Ern, Keyvan',mJg:'78',mZeit:'5:35.09',mDatum:'',disc:'400 Lagen',fZeit:'6:03.66',fJg:'79',fName:'Misch, Sara-Marisa',fDatum:''}
   ]
 };
 var editablePages=[
@@ -2338,6 +2361,8 @@ function adminUploadHeroBg(input){
       var dataUrl=e.target.result;
       var img=document.getElementById('heroBgImg');
       if(img){img.src=dataUrl;img.style.display='block';}
+      var hc=document.querySelector('.hero-content');if(hc)hc.style.opacity='0';
+      var hg=document.querySelector('.hero-grid');if(hg)hg.style.display='none';
       var prev=document.getElementById('admin-hero-preview');
       if(prev)prev.innerHTML='<img src="'+dataUrl+'" style="width:100%;height:100%;object-fit:cover"/>';
       if(ghConfigured()){
@@ -2533,21 +2558,21 @@ function renderRekordEditorTable(rows,bodyId){
   var html='';
   for(var i=0;i<rows.length;i++){
     var r=rows[i];
-    html+='<tr>'+inputCell(r.mName,'Name')+inputCell(r.mJg,'Jg')+inputCell(r.mZeit,'Zeit')+'<td style="padding:3px;background:rgba(30,111,255,.1)">'+inputCell(r.disc,'Disziplin')+'</td>'+inputCell(r.fZeit,'Zeit')+inputCell(r.fJg,'Jg')+inputCell(r.fName,'Name')
-      +'<td style="padding:3px;text-align:center"><button onclick="this.closest(\'tr\').remove()" style="color:#e03e3e;background:none;border:none;cursor:pointer;font-size:15px">🗑</button></td></tr>';
+    html+='<tr>'+inputCell(r.mName,'Name')+inputCell(r.mJg,'Jg')+inputCell(r.mZeit,'Zeit')+inputCell(r.mDatum||'','TT.MM.JJ')+'<td style="padding:3px;background:rgba(42,128,25,.1)">'+inputCell(r.disc,'Disziplin')+'</td>'+inputCell(r.fDatum||'','TT.MM.JJ')+inputCell(r.fZeit,'Zeit')+inputCell(r.fJg,'Jg')+inputCell(r.fName,'Name')
+      +'<td style="padding:3px;text-align:center"><button onclick="this.closest(\'tr\').remove()" style="color:#f87171;background:none;border:none;cursor:pointer;font-size:15px">🗑</button></td></tr>';
   }
   tbody.innerHTML=html;
 }
 function addRekordRow(type){
   var tbody=document.getElementById('rekord-'+type+'-body');if(!tbody)return;
   var tr=document.createElement('tr');
-  tr.innerHTML=inputCell('','Name')+inputCell('','Jg')+inputCell('','Zeit')+'<td style="padding:3px;background:rgba(30,111,255,.1)">'+inputCell('','Disziplin')+'</td>'+inputCell('','Zeit')+inputCell('','Jg')+inputCell('','Name')+'<td style="padding:3px;text-align:center"><button onclick="this.closest(\'tr\').remove()" style="color:#e03e3e;background:none;border:none;cursor:pointer;font-size:15px">🗑</button></td>';
+  tr.innerHTML=inputCell('','Name')+inputCell('','Jg')+inputCell('','Zeit')+inputCell('','TT.MM.JJ')+'<td style="padding:3px;background:rgba(42,128,25,.1)">'+inputCell('','Disziplin')+'</td>'+inputCell('','TT.MM.JJ')+inputCell('','Zeit')+inputCell('','Jg')+inputCell('','Name')+'<td style="padding:3px;text-align:center"><button onclick="this.closest(\'tr\').remove()" style="color:#f87171;background:none;border:none;cursor:pointer;font-size:15px">🗑</button></td>';
   tbody.appendChild(tr);
 }
 function collectRekordRows(bodyId){
   var tbody=document.getElementById(bodyId);if(!tbody)return[];
   var rows=[];
-  tbody.querySelectorAll('tr').forEach(function(tr){var inp=tr.querySelectorAll('input');if(inp.length>=7)rows.push({mName:inp[0].value,mJg:inp[1].value,mZeit:inp[2].value,disc:inp[3].value,fZeit:inp[4].value,fJg:inp[5].value,fName:inp[6].value});});
+  tbody.querySelectorAll('tr').forEach(function(tr){var inp=tr.querySelectorAll('input');if(inp.length>=9)rows.push({mName:inp[0].value,mJg:inp[1].value,mZeit:inp[2].value,mDatum:inp[3].value,disc:inp[4].value,fDatum:inp[5].value,fZeit:inp[6].value,fJg:inp[7].value,fName:inp[8].value});});
   return rows;
 }
 function saveRekorde(){
@@ -2561,7 +2586,7 @@ function renderRekordePage(){
   ['lang','kurz'].forEach(function(type){
     var tbody=document.getElementById('rekord-page-'+type);if(!tbody)return;
     var html='';
-    data[type].forEach(function(r){html+='<tr><td>'+escH(r.mName)+'</td><td>'+escH(r.mJg)+'</td><td>'+escH(r.mZeit)+'</td><td class="disc">'+escH(r.disc)+'</td><td>'+escH(r.fZeit)+'</td><td>'+escH(r.fJg)+'</td><td>'+escH(r.fName)+'</td></tr>';});
+    data[type].forEach(function(r){html+='<tr><td>'+escH(r.mName)+'</td><td>'+escH(r.mJg)+'</td><td style="font-weight:700">'+escH(r.mZeit)+'</td><td style="font-size:11px;color:var(--muted)">'+escH(r.mDatum||'')+'</td><td class="disc">'+escH(r.disc)+'</td><td style="font-size:11px;color:var(--muted)">'+escH(r.fDatum||'')+'</td><td style="font-weight:700">'+escH(r.fZeit)+'</td><td>'+escH(r.fJg)+'</td><td>'+escH(r.fName)+'</td></tr>';});
     tbody.innerHTML=html;
   });
 }
@@ -2583,12 +2608,6 @@ buildNewsGrids();
 renderFolderDropdowns();
 renderRekordePage();
 
-// ── init ──
-buildPersonGrid(vorstand,'pgVorstand');
-buildPersonGrid(erweiterter,'pgErweiterter');
-buildPersonGrid(trainers,'pgTrainer');
-buildPersonGrid(kurstrainer,'pgKurstrainer');
-buildNewsGrids();
 renderFolderDropdowns();
 renderRekordePage();
 
@@ -2632,6 +2651,11 @@ renderRekordePage();
     if(heroBg){
       var img=document.getElementById('heroBgImg');
       if(img){img.src=heroBg;img.style.display='block';}
+      // Banner mode: fade out text overlay when image present
+      var hc=document.querySelector('.hero-content');
+      if(hc)hc.style.opacity='0';
+      var hg=document.querySelector('.hero-grid');
+      if(hg)hg.style.display='none';
     }
     var count=getSlideCount();
     for(var i=0;i<count;i++){
@@ -2745,14 +2769,4 @@ renderRekordePage();
       e.stopPropagation();
       var menu=btn.nextElementSibling;if(!menu)return;
       var wasOpen=menu.classList.contains('open');
-      document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});
-      if(!wasOpen)menu.classList.add('open');
-    });
-  });
-  document.addEventListener('click',function(){document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});});
-  var hb=document.getElementById('hamburgerBtn');if(hb)hb.addEventListener('click',function(e){e.stopPropagation();toggleMobileMenu();});
-  var pw=document.getElementById('pwInput');if(pw)pw.addEventListener('keydown',function(e){if(e.key==='Enter')checkLogin();});
-})();
-</script>
-</body>
-</html>
+      document.querySelectorAll('.drop-menu.open').forEach(func
