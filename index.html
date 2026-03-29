@@ -219,10 +219,11 @@ nav{display:flex;align-items:center;gap:2px}
 }
 .hero-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(45,138,30,.15);border:1px solid rgba(45,138,30,.3);
+  background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.2);
   color:var(--accent);font-size:11px;font-weight:600;letter-spacing:.12em;
   text-transform:uppercase;padding:6px 14px;border-radius:50px;
   margin-bottom:24px;
+  backdrop-filter:blur(4px);
 }
 .hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
@@ -232,7 +233,7 @@ nav{display:flex;align-items:center;gap:2px}
   font-size:clamp(32px,5vw,72px);
   color:#fff;line-height:.92;letter-spacing:.03em;
   margin-bottom:24px;
-  text-shadow:0 2px 16px rgba(0,0,0,.7);
+  text-shadow:0 2px 20px rgba(0,0,0,.9),0 0 40px rgba(0,0,0,.5);
 }
 .hero-content h1 .accent-line{
   background:linear-gradient(90deg,var(--gold),#ff9c4a);
@@ -240,8 +241,8 @@ nav{display:flex;align-items:center;gap:2px}
   display:block;
 }
 .hero-content p{
-  font-size:15px;color:rgba(255,255,255,.85);max-width:500px;line-height:1.7;margin-bottom:28px;
-  text-shadow:0 1px 8px rgba(0,0,0,.6);
+  font-size:15px;color:rgba(255,255,255,.9);max-width:500px;line-height:1.7;margin-bottom:28px;
+  text-shadow:0 1px 10px rgba(0,0,0,.8);
 }
 .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
 .btn-primary{
@@ -253,10 +254,11 @@ nav{display:flex;align-items:center;gap:2px}
 }
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 36px rgba(45,138,30,.6)}
 .btn-ghost{
-  background:rgba(255,255,255,.05);color:var(--text);
+  background:rgba(0,0,0,.3);color:#fff;
   padding:13px 28px;border-radius:50px;font-size:14px;font-weight:500;
-  cursor:pointer;transition:.25s;border:1px solid var(--border);
+  cursor:pointer;transition:.25s;border:1px solid rgba(255,255,255,.3);
   font-family:'Inter',sans-serif;
+  backdrop-filter:blur(4px);
 }
 .btn-ghost:hover{background:var(--blue2);border-color:var(--blue2);color:#fff}
 
@@ -270,7 +272,7 @@ nav{display:flex;align-items:center;gap:2px}
   background:linear-gradient(135deg,var(--hero-h1,#fff),var(--gold));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.hero-stat .lbl{font-size:12px;color:var(--text2);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.hero-stat .lbl{font-size:12px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;text-shadow:0 1px 6px rgba(0,0,0,.8)}
 
 /* ── CAROUSEL ── */
 .carousel-wrap{
@@ -871,6 +873,7 @@ nav{display:flex;align-items:center;gap:2px}
       <span style="font-size:11px;color:rgba(255,255,255,.45)">Hintergrundbild</span>
       <input type="file" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer" onchange="uploadHeroBg(this)"/>
     </div>
+    <div id="heroBgOverlay" style="display:none;position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,12,5,.82) 0%,rgba(4,12,5,.65) 35%,rgba(4,12,5,.2) 65%,rgba(4,12,5,.0) 100%);pointer-events:none"></div>
     <img id="heroBgImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:1;display:none;transition:filter .3s"/>
     <div class="hero-content">
       <div class="hero-eyebrow">Schwimmverein Hockenheim · Seit 1967</div>
@@ -2115,6 +2118,9 @@ function restoreHeroBgBlur(){
   var slider=document.getElementById('heroBgBlurSlider');
   if(slider)slider.value=val||0;
   if(val)setHeroBgBlur(val);
+  // Show overlay if bg image exists
+  var img=document.getElementById('heroBgImg');
+  if(img&&img.src&&img.style.display!=='none'){var ov=document.getElementById('heroBgOverlay');if(ov)ov.style.display='block';}
 }
 
 // ════════════════════════════════════════════
@@ -2418,6 +2424,8 @@ function adminUploadHeroBg(input){
       var dataUrl=e.target.result;
       var img=document.getElementById('heroBgImg');
       if(img){img.src=dataUrl;img.style.display='block';}
+      var ov=document.getElementById('heroBgOverlay');if(ov)ov.style.display='block';
+      var hg=document.querySelector('.hero-grid');if(hg)hg.style.opacity='0';
       var prev=document.getElementById('admin-hero-preview');
       if(prev)prev.innerHTML='<img src="'+dataUrl+'" style="width:100%;height:100%;object-fit:cover"/>';
       if(ghConfigured()){
@@ -2706,7 +2714,8 @@ renderRekordePage();
     if(heroBg){
       var img=document.getElementById('heroBgImg');
       if(img){img.src=heroBg;img.style.display='block';}
-      // Keep text visible over banner image
+      var ov=document.getElementById('heroBgOverlay');if(ov)ov.style.display='block';
+      var hg=document.querySelector('.hero-grid');if(hg)hg.style.opacity='0';
     }
     var count=getSlideCount();
     for(var i=0;i<count;i++){
