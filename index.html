@@ -2332,72 +2332,73 @@ function initGithubUI(){
 
 function adminUploadHeroBg(input){
   if(!input.files[0])return;
-  openCropModal(input.files[0],function(file){
-  // run the upload with (possibly cropped) file
-  var r=new FileReader();
-  r.onload=async function(e){
-    var dataUrl=e.target.result;
-    var img=document.getElementById('heroBgImg');
-    if(img){img.src=dataUrl;img.style.display='block';}
-    var prev=document.getElementById('admin-hero-preview');
-    if(prev)prev.innerHTML='<img src="'+dataUrl+'" style="width:100%;height:100%;object-fit:cover"/>';
-    if(ghConfigured()){
-      showUploadProgress('⏳ Lade Bild zu GitHub hoch...');
-      var path='bilder/hero-bg.'+fileExt(file);
-      var url=await uploadToGithub(file,path);
-      if(url){
-        if(img){img.src=url;}
-        lsSet('svh_hero_bg',url);
-        if(prev)prev.innerHTML='<img src="'+url+'" style="width:100%;height:100%;object-fit:cover"/>';
-        hideUploadProgress();
+  openCropModal(input.files[0],function(croppedFile){
+    var r=new FileReader();
+    r.onload=async function(e){
+      var dataUrl=e.target.result;
+      var img=document.getElementById('heroBgImg');
+      if(img){img.src=dataUrl;img.style.display='block';}
+      var prev=document.getElementById('admin-hero-preview');
+      if(prev)prev.innerHTML='<img src="'+dataUrl+'" style="width:100%;height:100%;object-fit:cover"/>';
+      if(ghConfigured()){
+        showUploadProgress('⏳ Lade Bild zu GitHub hoch...');
+        var path='bilder/hero-bg.'+fileExt(croppedFile);
+        var url=await uploadToGithub(croppedFile,path);
+        if(url){
+          if(img)img.src=url;
+          lsSet('svh_hero_bg',url);
+          if(prev)prev.innerHTML='<img src="'+url+'" style="width:100%;height:100%;object-fit:cover"/>';
+          hideUploadProgress();
+        } else {
+          lsSet('svh_hero_bg',dataUrl);
+          showUploadProgress('⚠ GitHub Upload fehlgeschlagen – lokal gespeichert');
+          setTimeout(function(){document.getElementById('uploadHint').classList.remove('show');},3000);
+        }
       } else {
         lsSet('svh_hero_bg',dataUrl);
-        showUploadProgress('⚠ GitHub Upload fehlgeschlagen – lokal gespeichert');
-        setTimeout(function(){document.getElementById('uploadHint').classList.remove('show');},3000);
+        showHint();
       }
-    } else {
-      lsSet('svh_hero_bg',dataUrl);
-      showHint();
-    }
-  };
-  r.readAsDataURL(file);
-  }); // end openCropModal
+    };
+    r.readAsDataURL(croppedFile);
+  });
 }
+
 
 function adminUploadSlide(input,idx){
   if(!input.files[0])return;
-  openCropModal(input.files[0],function(file){
-  // run upload with (possibly cropped) file
-  var r=new FileReader();
-  r.onload=async function(e){
-    var dataUrl=e.target.result;
-    var sl=document.getElementById('hs'+idx);
-    if(sl){
-      var sImg=sl.querySelector('img.slide-img-bg');
-      if(!sImg){sImg=document.createElement('img');sImg.className='slide-img-bg';sImg.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5';sl.insertBefore(sImg,sl.firstChild);}
-      sImg.src=dataUrl;
-    }
-    if(ghConfigured()){
-      showUploadProgress('⏳ Lade Bild zu GitHub hoch...');
-      var path='bilder/slide-'+idx+'.'+fileExt(file);
-      var url=await uploadToGithub(file,path);
-      if(url){
-        if(sl){var si2=sl.querySelector('img.slide-img-bg');if(si2)si2.src=url;}
-        var imgs=ls('svh_slide_imgs',{});imgs[idx]=url;lsSet('svh_slide_imgs',imgs);
-        hideUploadProgress();
+  openCropModal(input.files[0],function(croppedFile){
+    var r=new FileReader();
+    r.onload=async function(e){
+      var dataUrl=e.target.result;
+      var sl=document.getElementById('hs'+idx);
+      if(sl){
+        var sImg=sl.querySelector('img.slide-img-bg');
+        if(!sImg){sImg=document.createElement('img');sImg.className='slide-img-bg';sImg.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5';sl.insertBefore(sImg,sl.firstChild);}
+        sImg.src=dataUrl;
+      }
+      if(ghConfigured()){
+        showUploadProgress('⏳ Lade Bild zu GitHub hoch...');
+        var path='bilder/slide-'+idx+'.'+fileExt(croppedFile);
+        var url=await uploadToGithub(croppedFile,path);
+        if(url){
+          if(sl){var si2=sl.querySelector('img.slide-img-bg');if(si2)si2.src=url;}
+          var imgs=ls('svh_slide_imgs',{});imgs[idx]=url;lsSet('svh_slide_imgs',imgs);
+          hideUploadProgress();
+        } else {
+          var imgs=ls('svh_slide_imgs',{});imgs[idx]=dataUrl;lsSet('svh_slide_imgs',imgs);
+          showUploadProgress('⚠ GitHub Upload fehlgeschlagen – lokal gespeichert');
+          setTimeout(function(){document.getElementById('uploadHint').classList.remove('show');},3000);
+        }
       } else {
         var imgs=ls('svh_slide_imgs',{});imgs[idx]=dataUrl;lsSet('svh_slide_imgs',imgs);
-        showUploadProgress('⚠ GitHub Upload fehlgeschlagen – lokal gespeichert');
-        setTimeout(function(){document.getElementById('uploadHint').classList.remove('show');},3000);
+        showHint();
       }
-    } else {
-      var imgs=ls('svh_slide_imgs',{});imgs[idx]=dataUrl;lsSet('svh_slide_imgs',imgs);
-      showHint();
-    }
-    renderBilderTab();
-  };
-  r.readAsDataURL(file);
+      renderBilderTab();
+    };
+    r.readAsDataURL(croppedFile);
+  });
 }
+
 
 function adminSaveSlideLabel(idx){
   var title=document.getElementById('slide-title-'+idx);
