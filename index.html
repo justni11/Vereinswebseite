@@ -282,11 +282,10 @@ nav{display:flex;align-items:center;gap:2px}
   height:0;
 }
 .carousel-track{
-  position:absolute;inset:0;
-  display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1);
+  display:flex;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1);
 }
 .carousel-slide{
-  min-width:100%;height:100%;position:relative;
+  min-width:100%;height:416px;position:relative;
   background:linear-gradient(135deg,var(--navy2),var(--navy3));flex-shrink:0;
 }
 .carousel-slide img.slide-img-bg{
@@ -1629,7 +1628,7 @@ nav{display:flex;align-items:center;gap:2px}
 
 <div id="uploadHint">✓ Bild eingefügt!</div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 var ADMIN_PW='7204';
 var builtinArticles=[
   {id:'dossenheim2026',title:'Dossenheim 2026',date:'28.02.2026',folder:'2026',teaser:'Der Wettkampfsamstag startete um 15 Uhr und endete um 22 Uhr beim 11. Late Night Schwimmfest.',full:'<p>Der vergangene Wettkampfsamstag (28.02.2026) startete für die Schwimmer des SVH erst um 15 Uhr und ging bis 22 Uhr. Das Besondere: Im Dunkeln schwimmen, mit Leuchtarmbändern und Musik bei den Staffeln.</p><p><strong>Ergebnisse:</strong><br/>Justin Rieger: 2. Platz 50m Brust – 00:34,06<br/>Pascal Dehoust: 1. Platz 100m Lagen – 01:19,57<br/>Luca Göddelmann: 1. Platz 100m Brust – 01:54,83</p>'},
@@ -2769,4 +2768,13 @@ renderRekordePage();
       e.stopPropagation();
       var menu=btn.nextElementSibling;if(!menu)return;
       var wasOpen=menu.classList.contains('open');
-      document.querySelectorAll('.drop-menu.open').forEach(func
+      document.querySelectorAll('.drop-menu.open').forEach(funcm.classList.remove('open');});
+    });
+  });
+  document.addEventListener('click',function(){document.querySelectorAll('.drop-menu.open').forEach(function(m){m.classList.remove('open');});});
+  var hb=document.getElementById('hamburgerBtn');if(hb)hb.addEventListener('click',function(e){e.stopPropagation();toggleMobileMenu();});
+  var pw=document.getElementById('pwInput');if(pw)pw.addEventListener('keydown',function(e){if(e.key==='Enter')checkLogin();});
+})();
+</script>
+</body>
+</html>
